@@ -13,10 +13,18 @@ with pdfplumber.open('name_list.pdf') as test_pdf:
         text = [i for i in text if i] #remove empty strings
         master.append(text)
 
-def get_company_name(pdf):
+# def get_company_name(pdf):
 
-    return company_name
+#     return company_name
 
+
+def get_company_name(line):
+    p = re.compile(r'To:(.*)')
+    if p.search(line):
+        company_name = p.search(line).group(1).lstrip()
+        return company_name
+    else:
+        pass
 
 def extract_information(pdf_path):
     with open(pdf_path, 'rb') as f:
